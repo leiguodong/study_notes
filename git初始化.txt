@@ -4,7 +4,7 @@ git clone https://github.com/leiguodong/study_notes.git 关联GitHub上的仓库
 
 git status 查看当前工作空间修改情况 new file or modified file
 
-
+git pull 不会删除本地未commit的修改
 git config --global user.name "leiguodong"
 git config --global user.email "461460477@qq.com"
 github上修改了一下
