@@ -1,5 +1,6 @@
-git init 初始化文件夹
-git clone https://github.com/leiguodong/study_notes.git 关联GitHub上的仓库
+锘夸慨鏀箃xt缂栫爜
+git init 鍒濆鍖栨枃浠跺す
+git clone https://github.com/leiguodong/study_notes.git 鍏宠仈GitHub涓婄殑浠撳簱
 
 git config --global user.name "leiguodong"
 git config --global user.email "461460477@qq.com"
