@@ -2,8 +2,15 @@
 git init 初始化文件夹
 git clone https://github.com/leiguodong/study_notes.git 关联GitHub上的仓库
 
+git 
+
 git config --global user.name "leiguodong"
 git config --global user.email "461460477@qq.com"
 github上修改了一下
 我本地修改了一下
+
+解决冲突conflict
+
+方法一 对于简单的合并，手工编辑，然后去掉这些标记，最后像往常的提交一样先add再commit即可
+方法二 
 
