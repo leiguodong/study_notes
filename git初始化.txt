@@ -2,7 +2,8 @@
 git init 初始化文件夹
 git clone https://github.com/leiguodong/study_notes.git 关联GitHub上的仓库
 
-git 
+git status 查看当前工作空间修改情况 new file or modified file
+
 
 git config --global user.name "leiguodong"
 git config --global user.email "461460477@qq.com"
