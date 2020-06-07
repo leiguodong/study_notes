@@ -4,3 +4,4 @@ git clone https://github.com/leiguodong/study_notes.git 关联GitHub上的仓库
 
 git config --global user.name "leiguodong"
 git config --global user.email "461460477@qq.com"
+我本地修改了一下
