@@ -2,22 +2,31 @@
 git init 初始化文件夹
 git clone https://github.com/leiguodong/study_notes.git 关联GitHub上的仓库
 
-git status 查看当前工作空间修改情况 new file or modified file
+git status 查看当前工作空间修改情况
+git diff   显示与上次提交版本文件的不同、
+
+git add 当前修改提交到下次提交中
+git add -p <file> 把对某个文件的修改添加到下次提交中
+git commit -a 提交本地所有的修改
+git commit 提交之前已标记的变化 git commit -m 'message here'
+git commit -amend 请勿修改已发布的提交记录
+
+把当前分支中未提交的修改移动到其他分支
+git stash
+git checkout branch2
+git pop
+
+git grep "hello" 从当前目录的所有文件中查找文本内容hello
 
 git pull 不会删除本地未commit的修改
 git config --global user.name "leiguodong"
 git config --global user.email "461460477@qq.com"
-github上修改了一下
-我本地修改了一下
 
-解决冲突conflict
+git 文件三种状态
+  committed 已提交：该文件被安全地保存在了本地数据库
+  modified    已修改: 修改了某个文件，但还没有保存
+  staged       已暂存: 把已修改的文件放在下次保存的清单中
 
-方法一 对于简单的合并，手工编辑，然后去掉这些标记，最后像往常的提交一样先add再commit即可
-方法二 
-什么情况下会冲突
-local-update-1
-github-update-1
-local-update-2
 
 
 
