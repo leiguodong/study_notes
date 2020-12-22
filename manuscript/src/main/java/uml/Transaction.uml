@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="2197.0" y="466.5">org.springframework.transaction.support.TransactionSynchronizationAdapter</node>
+    <node x="770.0" y="1739.0">org.springframework.transaction.support.TransactionSynchronizationManager</node>
+    <node x="2228.0" y="2135.0">org.springframework.transaction.support.TransactionSynchronizationUtils.ScopedProxyUnwrapper</node>
+    <node x="1419.0" y="1739.0">org.springframework.transaction.support.ResourceHolderSupport</node>
+    <node x="3028.0" y="312.0">org.springframework.transaction.support.ResourceHolderSynchronization</node>
+    <node x="2564.0" y="480.5">org.springframework.transaction.support.SimpleTransactionScope</node>
+    <node x="420.5" y="1432.0">org.springframework.transaction.support.AbstractPlatformTransactionManager.SuspendedResourcesHolder</node>
+    <node x="0.0" y="1739.0">org.springframework.transaction.support.DefaultTransactionDefinition</node>
+    <node x="1630.0" y="620.0">org.springframework.transaction.support.DefaultTransactionStatus</node>
+    <node x="2217.0" y="1739.0">org.springframework.transaction.support.TransactionSynchronizationUtils</node>
+    <node x="576.0" y="2893.0">org.springframework.transaction.support.TransactionCallbackWithoutResult</node>
+    <node x="0.0" y="2778.0">org.springframework.transaction.support.DelegatingTransactionDefinition</node>
+    <node x="1297.0" y="2778.0">org.springframework.transaction.support.CallbackPreferringPlatformTransactionManager</node>
+    <node x="1321.0" y="816.0">org.springframework.transaction.support.SimpleTransactionStatus</node>
+    <node x="0.0" y="0.0">org.springframework.transaction.support.AbstractPlatformTransactionManager</node>
+    <node x="1046.0" y="2778.0">org.springframework.transaction.support.ResourceHolder</node>
+    <node x="2206.0" y="2778.0">org.springframework.transaction.support.ResourceTransactionDefinition</node>
+    <node x="2544.0" y="2778.0">org.springframework.transaction.support.SmartTransactionObject</node>
+    <node x="2699.5" y="904.5">org.springframework.transaction.support.SimpleTransactionScope.ScopedObjectsHolder</node>
+    <node x="2622.75" y="0.0">org.springframework.transaction.support.TransactionSynchronization</node>
+    <node x="2651.5" y="1739.0">org.springframework.transaction.support.TransactionOperations</node>
+    <node x="1376.25" y="0.0">org.springframework.transaction.support.AbstractTransactionStatus</node>
+    <node x="220.5" y="2499.0">org.springframework.transaction.support.TransactionTemplate</node>
+    <node x="2858.0" y="2778.0">org.springframework.transaction.support.package-info</node>
+    <node x="2257.5" y="876.0">org.springframework.transaction.support.SimpleTransactionScope.CleanupSynchronization</node>
+    <node x="2626.0" y="1910.0">org.springframework.transaction.support.WithoutTransactionOperations</node>
+    <node x="586.0" y="2778.0">org.springframework.transaction.support.TransactionCallback</node>
+    <node x="1864.0" y="2778.0">org.springframework.transaction.support.ResourceTransactionManager</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="org.springframework.transaction.support.TransactionCallbackWithoutResult" target="org.springframework.transaction.support.TransactionCallback">
+      <point x="0.0" y="-46.5" />
+      <point x="0.0" y="32.5" />
+    </edge>
+    <edge source="org.springframework.transaction.support.TransactionSynchronizationUtils.ScopedProxyUnwrapper" target="org.springframework.transaction.support.TransactionSynchronizationUtils">
+      <point x="0.0" y="-32.5" />
+      <point x="0.0" y="173.0" />
+    </edge>
+    <edge source="org.springframework.transaction.support.AbstractPlatformTransactionManager.SuspendedResourcesHolder" target="org.springframework.transaction.support.AbstractPlatformTransactionManager">
+      <point x="0.0" y="-131.0" />
+      <point x="0.0" y="691.0" />
+    </edge>
+    <edge source="org.springframework.transaction.support.TransactionTemplate" target="org.springframework.transaction.support.DefaultTransactionDefinition">
+      <point x="0.0" y="-117.0" />
+      <point x="0.0" y="355.0" />
+    </edge>
+    <edge source="org.springframework.transaction.support.SimpleTransactionStatus" target="org.springframework.transaction.support.AbstractTransactionStatus">
+      <point x="0.0" y="-47.0" />
+      <point x="1465.5" y="595.0" />
+      <point x="1527.25" y="595.0" />
+      <point x="-151.0" y="285.0" />
+    </edge>
+    <edge source="org.springframework.transaction.support.SimpleTransactionScope.CleanupSynchronization" target="org.springframework.transaction.support.TransactionSynchronizationAdapter">
+      <point x="-105.5" y="-75.0" />
+      <point x="0.0" y="102.5" />
+    </edge>
+    <edge source="org.springframework.transaction.support.SimpleTransactionScope.ScopedObjectsHolder" target="org.springframework.transaction.support.SimpleTransactionScope">
+      <point x="0.0" y="-46.5" />
+      <point x="111.0" y="88.5" />
+    </edge>
+    <edge source="org.springframework.transaction.support.WithoutTransactionOperations" target="org.springframework.transaction.support.TransactionOperations">
+      <point x="0.0" y="-61.0" />
+      <point x="0.0" y="60.5" />
+    </edge>
+    <edge source="org.springframework.transaction.support.TransactionSynchronizationAdapter" target="org.springframework.transaction.support.TransactionSynchronization">
+      <point x="0.0" y="-102.5" />
+      <point x="2363.0" y="287.0" />
+      <point x="2726.0" y="287.0" />
+      <point x="-103.25" y="131.0" />
+    </edge>
+    <edge source="org.springframework.transaction.support.DefaultTransactionStatus" target="org.springframework.transaction.support.AbstractTransactionStatus">
+      <point x="0.0" y="-243.0" />
+      <point x="1891.0" y="595.0" />
+      <point x="1829.25" y="595.0" />
+      <point x="151.0" y="285.0" />
+    </edge>
+    <edge source="org.springframework.transaction.support.SimpleTransactionScope.CleanupSynchronization" target="org.springframework.transaction.support.SimpleTransactionScope">
+      <point x="105.5" y="-75.0" />
+      <point x="2574.0" y="851.0" />
+      <point x="2675.0" y="851.0" />
+      <point x="-111.0" y="88.5" />
+    </edge>
+    <edge source="org.springframework.transaction.support.ResourceHolderSynchronization" target="org.springframework.transaction.support.TransactionSynchronization">
+      <point x="0.0" y="-257.0" />
+      <point x="3295.5" y="287.0" />
+      <point x="2932.5" y="287.0" />
+      <point x="103.25" y="131.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.6000000000000001" x="1774.1428571428564" y="948.0714285714284" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
