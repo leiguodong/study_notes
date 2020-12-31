@@ -82,6 +82,7 @@ public class Bio {
      * 资源浪费 每次循环都得遍历 clients 即使没有任何连接信息
      */
     public  static void nioSingleThread() throws Exception{
+        //定义一个channel数组
         LinkedList<SocketChannel> clients = new LinkedList<>();
         ServerSocketChannel ssc = ServerSocketChannel.open();
         ssc.bind(new InetSocketAddress(9090));
@@ -151,6 +152,12 @@ public class Bio {
                         SelectionKey key = iterator.next();
                         iterator.remove();
                         //处理 accept 连接 read 读 write 写
+                        /**
+                         * 服务端接收客户端连接事件SelectionKey.OP_ACCEPT(16)
+                         * 客户端连接服务端事件SelectionKey.OP_CONNECT(8)
+                         * 读事件SelectionKey.OP_READ(1)
+                         * 写事件SelectionKey.OP_WRITE(4)
+                         */
                         if(key.isAcceptable()){
                             acceptHandler(key);
                         }else if(key.isReadable()){

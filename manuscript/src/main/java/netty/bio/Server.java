@@ -9,7 +9,7 @@ import java.net.Socket;
 /**
  * Created by lei on 2020/12/10.
  */
-@Slf4j
+//@Slf4j
 public class Server {
     //默认端口号
     private static int DEFAULT_PORT = 7777;
