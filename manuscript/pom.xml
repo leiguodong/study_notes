@@ -105,6 +105,26 @@
       <artifactId>slf4j-api</artifactId>
       <version>1.7.5</version>
     </dependency>
+    <!--zookeeper应用-->
+    <!-- https://mvnrepository.com/artifact/org.apache.curator/curator-framework -->
+    <dependency>
+      <groupId>org.apache.curator</groupId>
+      <artifactId>curator-framework</artifactId>
+      <version>5.1.0</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.curator/curator-recipes -->
+    <dependency>
+      <groupId>org.apache.curator</groupId>
+      <artifactId>curator-recipes</artifactId>
+      <version>5.0.0</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/io.netty/netty-all -->
+    <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-all</artifactId>
+      <version>4.1.56.Final</version>
+    </dependency>
+
   </dependencies>
 
   <build>
