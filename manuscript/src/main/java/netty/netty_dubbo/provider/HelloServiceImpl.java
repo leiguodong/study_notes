@@ -1,6 +1,6 @@
 package netty.netty_dubbo.provider;
 
-import netty.netty_dubbo.HelloService;
+import netty.netty_dubbo.publicinterface.HelloService;
 
 /**
  * Created by lei on 2020/12/31.
