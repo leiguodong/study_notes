@@ -1,0 +1,96 @@
+<html>
+  <head></head>
+  <body>
+     <script type="text/javascript">
+      var ratio1 = 0.382;
+      var ratio2 = 0.618;
+      var ratio3 = 0.764;
+      var ratio4 = 0.191;
+      var ratio5 = 0.236;
+      var ratio6 = 0.809;
+      var ratio7 = 1.382;
+      
+      function drawLine(){
+         var c=document.getElementById("myCanvas");
+         var ctx=c.getContext("2d");
+         //重新开始一条路径使颜色不互相影响
+         ctx.beginPath();
+         //设置笔触的颜色
+         ctx.strokeStyle="#0000ff";
+         //设置开始坐标
+         ctx.moveTo(0,500);
+         //设置结束坐标
+         ctx.lineTo(100,250);
+         //绘制线条
+         ctx.stroke();
+         ctx.beginPath();
+         ctx.moveTo(100,250);
+         ctx.lineTo(180,310);
+         //绘制线条
+         ctx.stroke();
+        ctx.beginPath();
+      ctx.moveTo(180,310);
+      ctx.lineTo(280,190);
+       //绘制线条
+      ctx.stroke();
+        ctx.beginPath();
+      ctx.moveTo(45.89,45.67);
+      ctx.lineTo(48.26,49.59);
+       //绘制线条
+      ctx.stroke();
+      }
+      //计算某一段的黄金分割值
+      function doGetGolden(goldenTop,glodenButton){
+         var goldenTop = parseFloat(document.getElementById("goldenTop").value);
+         var goldenButton = parseFloat(document.getElementById("goldenButton").value);
+         document.getElementById("golden1").value=(goldenButton+(goldenTop-goldenButton)*0.191).toFixed(2);
+         document.getElementById("golden2").value=(goldenButton+(goldenTop-goldenButton)*0.236).toFixed(2);
+         document.getElementById("golden3").value=(goldenButton+(goldenTop-goldenButton)*0.382).toFixed(2);
+         document.getElementById("golden4").value=(goldenButton+(goldenTop-goldenButton)*0.618).toFixed(2);
+         document.getElementById("golden5").value=(goldenButton+(goldenTop-goldenButton)*0.764).toFixed(2);
+         document.getElementById("golden6").value=(goldenButton+(goldenTop-goldenButton)*0.809).toFixed(2);
+         //document.getElementById("4").value=button2+(goldenTop-button2)*0.618;
+
+      }
+      function getTrend(trend1,trend2,trend3,trend4){
+         var trend1 = parseFloat(document.getElementById("trend1").value);
+         var trend2 = parseFloat(document.getElementById("trend2").value);
+         var trend3 = parseFloat(document.getElementById("trend3").value);
+         var trend4 = parseFloat(document.getElementById("trend4").value);
+         var trendRatio = trend1+((trend3-trend1)/(trend2-trend1)*(trend4-trend1));
+         document.getElementById("trendLine").value=(trend1+((trend3-trend1)/(trend2-trend1)*(trend4-trend1))).toFixed(2)
+
+      }
+     </script>
+     <form>
+       <div>
+       		<input type="text" id="goldenTop">
+  	   		<input type="text" id="goldenButton">
+	   		<input type="button" value="计算黄金分割点" onclick="doGetGolden();">
+	   		<input type="button" value="画图" onclick="drawLine();">
+       </div>
+       <div id="goldenDiv">
+	      <input type="text" id="golden1">
+    	  <input type="text" id="golden2">
+	      <input type="text" id="golden3">
+	      <input type="text" id="golden4">
+   	      <input type="text" id="golden5">
+	      <input type="text" id="golden6">
+	   </div>
+       <div>
+            <input type="text" id="trend1">
+       		<input type="text" id="trend2">
+       		<input type="text" id="trend3">
+  	   		<input type="text" id="trend4">  		
+	   		<input type="button" value="计算节奏线" onclick="getTrend();">
+       </div>
+	   <div id="trendDiv">
+	      <input type="text" id="trendLine">    	 
+	   </div>
+       <div>
+        <canvas id="myCanvas" width="1000" height="800" style="border:1px solid #000000;margin-left:1%;margin-top:1%"></canvas>
+       </div>
+	   
+	 </form>
+  </body>
+</html>
