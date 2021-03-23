@@ -9,7 +9,14 @@
       var ratio5 = 0.236;
       var ratio6 = 0.809;
       var ratio7 = 1.382;
-      
+      var flag = "";
+      var c;
+      var ctx;
+      window.onload=function(){
+         c=document.getElementById("myCanvas");
+         ctx=c.getContext("2d");
+         ctx.translate(0,7000);
+      }
       function drawLine(){
          var c=document.getElementById("myCanvas");
          var ctx=c.getContext("2d");
@@ -52,14 +59,85 @@
          //document.getElementById("4").value=button2+(goldenTop-button2)*0.618;
 
       }
+      var x =0;
+      var y =0;
+      function drawGoldenLine(){
+         var goldenTop = parseFloat(document.getElementById("goldenTop").value);
+         var goldenButton = parseFloat(document.getElementById("goldenButton").value);
+         var golden1 =(goldenButton+(goldenTop-goldenButton)*0.191).toFixed(2);
+         var golden2 =(goldenButton+(goldenTop-goldenButton)*0.236).toFixed(2);
+         var golden3 =(goldenButton+(goldenTop-goldenButton)*0.382).toFixed(2);
+         var golden4 =(goldenButton+(goldenTop-goldenButton)*0.618).toFixed(2);
+         var golden5 =(goldenButton+(goldenTop-goldenButton)*0.764).toFixed(2);
+         var golden6 =(goldenButton+(goldenTop-goldenButton)*0.809).toFixed(2);
+         
+         document.getElementById("golden1").value=golden1;
+         document.getElementById("golden2").value=golden2;
+         document.getElementById("golden3").value=golden3;
+         document.getElementById("golden4").value=golden4;
+         document.getElementById("golden5").value=golden5;
+         document.getElementById("golden6").value=golden6;
+         //var c=document.getElementById("myCanvas");
+         //var ctx=c.getContext("2d");
+         //ctx.translate(0,800);
+         //ctx.translate()
+         //设置笔触的颜色
+         ctx.strokeStyle="#0000ff";
+         ctx.beginPath();
+         //ctx.moveTo(0,-500);
+         //ctx.lineTo(100,-600);
+         ctx.moveTo(0,-goldenButton*100);
+         ctx.lineTo(100,-goldenTop*100);
+         //绘制线条
+         ctx.stroke();
+         ctx.beginPath();
+         ctx.moveTo(100,-golden1*100);
+         ctx.lineTo(150,-golden1*100);
+         ctx.stroke();
+         ctx.beginPath();
+         ctx.moveTo(100,-golden2*100);
+         ctx.lineTo(150,-golden2*100);
+         ctx.stroke();
+         ctx.beginPath();
+         ctx.moveTo(100,-golden3*100);
+         ctx.lineTo(150,-golden3*100);
+         ctx.stroke();
+         ctx.beginPath();
+         ctx.moveTo(100,-golden4*100);
+         ctx.lineTo(150,-golden4*100);
+         ctx.stroke();
+         ctx.beginPath();
+         ctx.moveTo(100,-golden5*100);
+         ctx.lineTo(150,-golden5*100);
+         ctx.stroke();
+         ctx.beginPath();
+         ctx.moveTo(100,-golden6*100);
+         ctx.lineTo(150,-golden6*100);
+         ctx.stroke();
+         
+         
+      }
+      //计算一条节奏线
       function getTrend(trend1,trend2,trend3,trend4){
-         var trend1 = parseFloat(document.getElementById("trend1").value);
-         var trend2 = parseFloat(document.getElementById("trend2").value);
-         var trend3 = parseFloat(document.getElementById("trend3").value);
-         var trend4 = parseFloat(document.getElementById("trend4").value);
-         var trendRatio = trend1+((trend3-trend1)/(trend2-trend1)*(trend4-trend1));
-         document.getElementById("trendLine").value=(trend1+((trend3-trend1)/(trend2-trend1)*(trend4-trend1))).toFixed(2)
-
+         //var trend1 = parseFloat(document.getElementById("trend1").value);
+         //var trend2 = parseFloat(document.getElementById("trend2").value);
+         //var trend3 = parseFloat(document.getElementById("trend3").value);
+         //var trend4 = parseFloat(document.getElementById("trend4").value);
+         //var trendRatio = trend1+((trend3-trend1)/(trend2-trend1)*(trend4-trend1));
+         //document.getElementById("trendLine").value=(trend1+((trend3-trend1)/(trend2-trend1)*(trend4-trend1))).toFixed(2)
+         var A = parseFloat(document.getElementById("trend1").value);
+         var B = parseFloat(document.getElementById("trend2").value);
+         var C = parseFloat(document.getElementById("trend3").value);
+         var D = parseFloat(document.getElementById("trend4").value);
+         var trendRatio;
+         if(flag=='up'){
+            trendRatio = A+((C-A)/(B-A)*(D-A));
+         }
+         if(flag=='down'){
+            trendRatio = A-((A-C)/(A-B)*(A-D));
+         }
+         //toFixed(2) 保留两位小数
+         document.getElementById("trendLine").value=(A+((C-A)/(B-A)*(D-A))).toFixed(2)
       }
      </script>
      <form>
@@ -67,7 +145,7 @@
        		<input type="text" id="goldenTop">
   	   		<input type="text" id="goldenButton">
 	   		<input type="button" value="计算黄金分割点" onclick="doGetGolden();">
-	   		<input type="button" value="画图" onclick="drawLine();">
+	   		<input type="button" value="绘制黄金分割线" onclick="drawGoldenLine();">
        </div>
        <div id="goldenDiv">
 	      <input type="text" id="golden1">
@@ -75,22 +153,57 @@
 	      <input type="text" id="golden3">
 	      <input type="text" id="golden4">
    	      <input type="text" id="golden5">
-	      <input type="text" id="golden6">
+	      <input type="text" id="golden6">	     
 	   </div>
        <div>
             <input type="text" id="trend1">
        		<input type="text" id="trend2">
        		<input type="text" id="trend3">
-  	   		<input type="text" id="trend4">  		
+  	   		<input type="text" id="trend4">  
+  	   		<span>上:</span><input type="radio" id="flag" name="flag" value="up" onclick="putRadioValue(this.value);">
+	        <span>下:</span><input type="radio" id="flag" name="flag" value="down" onclick="putRadioValue(this.value);">		
 	   		<input type="button" value="计算节奏线" onclick="getTrend();">
+	   		<input type="button" value="绘制节奏线" onclick="drawTrendLine();">
+
        </div>
 	   <div id="trendDiv">
 	      <input type="text" id="trendLine">    	 
 	   </div>
        <div>
-        <canvas id="myCanvas" width="1000" height="800" style="border:1px solid #000000;margin-left:1%;margin-top:1%"></canvas>
+        <canvas id="myCanvas" width="10" height="10" style="border:1px solid #FFFFFF;margin-left:1%;margin-top:1%"></canvas>
        </div>
-	   
+	   <div  style="width:600px;height:805px;display:inline;border:1px solid #F00;padding:0px;float:left;">
+	     <div style="text-align:center;">30分钟</div>
+	     <div id="div30-golden" style="width:290px;height:790px;display:inline;border:1px solid #F00;padding:2px;float:left;">
+	     	 
+	     </div>
+	     <div id="div30-trend" style="width:290px;height:790px;display:inline;border:1px solid #F00;padding:2px;float:left;">
+	     	
+	     </div>
+	   </div>
+	   <div class="inline-class" style="width:600px;height:805px;display:inline;border:1px solid #F00;padding:0px;float:left;">
+	     <div style="text-align:center;">
+	     	 <span>5分钟</span>
+	     </div>
+	     <div id="div-5-golden" style="width:290px;height:790px;display:inline;border:1px solid #F00;padding:2px;float:left;">
+	     	 
+	     </div>
+	     <div id="div-5--trend" style="width:290px;height:790px;display:inline;border:1px solid #F00;padding:2px;float:left;">
+	     	
+	     </div>
+	   </div>
+	    <div class="inline-class" style="width:600px;height:805px;display:inline;border:1px solid #F00;padding:0px;float:left;">
+	     <div style="text-align:center;">
+	     	 <span>1分钟</span>
+	     </div>
+	     <div id="div-1-golden" style="width:290px;height:790px;display:inline;border:1px solid #F00;padding:2px;float:left;">
+	     	 
+	     </div>
+	     <div id="div-1-trend" style="width:290px;height:790px;display:inline;border:1px solid #F00;padding:2px;float:left;">
+	     	
+	     </div>
+	   </div>
+	  
 	 </form>
   </body>
 </html>
