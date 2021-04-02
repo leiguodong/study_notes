@@ -10,8 +10,15 @@
       var ratio6 = 0.809;
       var ratio7 = 1.382;
       var flag = "";
+      var timeType = "";
       var c;
       var ctx;
+      function putRadioValue(value){
+        flag = value;
+      }
+      function putTimeRadioValue(value){
+        timeType = value;
+      }
       window.onload=function(){
          c=document.getElementById("myCanvas");
          ctx=c.getContext("2d");
@@ -118,34 +125,90 @@
          
       }
       //计算一条节奏线
-      function getTrend(trend1,trend2,trend3,trend4){
-         //var trend1 = parseFloat(document.getElementById("trend1").value);
-         //var trend2 = parseFloat(document.getElementById("trend2").value);
-         //var trend3 = parseFloat(document.getElementById("trend3").value);
-         //var trend4 = parseFloat(document.getElementById("trend4").value);
-         //var trendRatio = trend1+((trend3-trend1)/(trend2-trend1)*(trend4-trend1));
-         //document.getElementById("trendLine").value=(trend1+((trend3-trend1)/(trend2-trend1)*(trend4-trend1))).toFixed(2)
-         var A = parseFloat(document.getElementById("trend1").value);
-         var B = parseFloat(document.getElementById("trend2").value);
-         var C = parseFloat(document.getElementById("trend3").value);
-         var D = parseFloat(document.getElementById("trend4").value);
-         var trendRatio;
+      function getTrend(){
+         var trend1 = parseFloat(document.getElementById("trend1").value);
+         var trend2 = parseFloat(document.getElementById("trend2").value);
+         var trend3 = parseFloat(document.getElementById("trend3").value);
+         var trend4 = parseFloat(document.getElementById("trend4").value);
+         var trendRatio = trend1+((trend3-trend1)/(trend2-trend1)*(trend4-trend1));
+         //document.getElementById("trendLine").value=(trend1+((trend3-trend1)/(trend2-trend1)*(trend4-trend1))).toFixed(2);
+         document.getElementById("trendLine").value=getTrendRatioValue(trend1,trend2,trend3,trend4);
+     }
+     function getTrendRatioValue(A,B,C,D){
+         var trendRatio ;
          if(flag=='up'){
-            trendRatio = A+((C-A)/(B-A)*(D-A));
+            trendRatio = (A+((C-A)/(B-A)*(D-A))).toFixed(2);
          }
          if(flag=='down'){
-            trendRatio = A-((A-C)/(A-B)*(A-D));
+            trendRatio = (A-((A-C)/(A-B)*(A-D))).toFixed(2);
          }
-         //toFixed(2) 保留两位小数
-         document.getElementById("trendLine").value=(A+((C-A)/(B-A)*(D-A))).toFixed(2)
-      }
+         return trendRatio;
+     }
+     function getTrendRatio(A,B,C,D){
+         var ratio ;
+         if(flag=='up'){
+            ratio = ((C-A)/(B-A)).toFixed(2);
+         }
+         if(flag=='down'){
+            ratio = ((A-C)/(A-B)).toFixed(2);
+         }
+         return ratio;
+     }
+     
+     //底点数组栈
+     /*concat() 合并数组 
+     push() 末尾添加元素
+     var botton = new Array();
+     */
+     //顶点数组栈
+     var top = new Array();
+     //分割比例栈
+     var ratio = new Array();
+     var indirect = "";
+     function dispatch(){
+       this.botton = new Array();
+       this.top = new Array();
+       this.add = add;
+       this.println = println;
+       function add(direction,value){
+       
+       }
+       function println(){
+        
+       }
+     }
+     function add_array(value){
+       var temp = parseFloat(value);
+       if(indirect =='up'){
+          if(botton.length==0 && top.length==0){
+            botton[0]=temp;
+            botton[0]=temp;
+          }else{
+            if(top[top.length-1]>temp && botton[0] <temp){
+              
+            }else{
+              alert("方向错误")
+            }
+          }
+         
+       }
+       if(indirect =='down'){
+          
+       }
+     }
+     function ABCD(a,b,c,d){
+       this.a = a;
+       this.b = b;
+       this.c = c;
+       this.d = d;
+     }
      </script>
      <form>
        <div>
        		<input type="text" id="goldenTop">
   	   		<input type="text" id="goldenButton">
-	   		<input type="button" value="计算黄金分割点" onclick="doGetGolden();">
-	   		<input type="button" value="绘制黄金分割线" onclick="drawGoldenLine();">
+	   		<input type="button" value="计算黄金分割点" onclick="doGetGolden()">
+	   		<input type="button" value="绘制黄金分割线" onclick="drawGoldenLine()">
        </div>
        <div id="goldenDiv">
 	      <input type="text" id="golden1">
@@ -155,15 +218,20 @@
    	      <input type="text" id="golden5">
 	      <input type="text" id="golden6">	     
 	   </div>
+	   <div>
+	        <span>30分钟:</span><input type="radio" id="timeType" name="timeType" value="30" onclick="putTimeRadioValue(this.value)">
+	        <span>5分钟:</span><input type="radio" id="timeType" name="timeType" value="5" onclick="putTimeRadioValue(this.value)">
+	        <span>1分钟:</span><input type="radio" id="timeType" name="timeType" value="1" onclick="putTimeRadioValue(this.value)">
+	   </div>
        <div>
             <input type="text" id="trend1">
        		<input type="text" id="trend2">
        		<input type="text" id="trend3">
   	   		<input type="text" id="trend4">  
-  	   		<span>上:</span><input type="radio" id="flag" name="flag" value="up" onclick="putRadioValue(this.value);">
-	        <span>下:</span><input type="radio" id="flag" name="flag" value="down" onclick="putRadioValue(this.value);">		
+  	   		<span>上:</span><input type="radio" id="flag" name="flag" value="up" onclick="putRadioValue(this.value)">
+	        <span>下:</span><input type="radio" id="flag" name="flag" value="down" onclick="putRadioValue(this.value)">		
 	   		<input type="button" value="计算节奏线" onclick="getTrend();">
-	   		<input type="button" value="绘制节奏线" onclick="drawTrendLine();">
+	   		<input type="button" value="绘制节奏线" onclick="drawTrendLine()">
 
        </div>
 	   <div id="trendDiv">
@@ -172,38 +240,42 @@
        <div>
         <canvas id="myCanvas" width="10" height="10" style="border:1px solid #FFFFFF;margin-left:1%;margin-top:1%"></canvas>
        </div>
-	   <div  style="width:600px;height:805px;display:inline;border:1px solid #F00;padding:0px;float:left;">
+       <div id="context"></div>
+       <!--
+        div 同一行显示 display:inline; 显示自定义大小 float:left
+       
+	   <div  style="width:930px;height:400px;border:1px solid #F00;padding:0px;float:left;">
 	     <div style="text-align:center;">30分钟</div>
-	     <div id="div30-golden" style="width:290px;height:790px;display:inline;border:1px solid #F00;padding:2px;float:left;">
+	     <div id="div-30-golden" style="width:450px;height:370px;display:inline;border:1px solid #F00;padding:2px;float:left;">
 	     	 
 	     </div>
-	     <div id="div30-trend" style="width:290px;height:790px;display:inline;border:1px solid #F00;padding:2px;float:left;">
+	     <div id="div-30-trend" style="width:450px;height:370px;display:inline;border:1px solid #F00;padding:2px;float:left;">
 	     	
 	     </div>
 	   </div>
-	   <div class="inline-class" style="width:600px;height:805px;display:inline;border:1px solid #F00;padding:0px;float:left;">
+	   <div class="inline-class" style="width:930px;height:400px;display:inline;border:1px solid #F00;padding:0px;float:left;">
 	     <div style="text-align:center;">
 	     	 <span>5分钟</span>
 	     </div>
-	     <div id="div-5-golden" style="width:290px;height:790px;display:inline;border:1px solid #F00;padding:2px;float:left;">
+	     <div id="div-5-golden" style="width:450px;height:370px;display:inline;border:1px solid #F00;padding:2px;float:left;">
 	     	 
 	     </div>
-	     <div id="div-5--trend" style="width:290px;height:790px;display:inline;border:1px solid #F00;padding:2px;float:left;">
+	     <div id="div-5--trend" style="width:450px;height:370px;display:inline;border:1px solid #F00;padding:2px;float:left;">
 	     	
 	     </div>
 	   </div>
-	    <div class="inline-class" style="width:600px;height:805px;display:inline;border:1px solid #F00;padding:0px;float:left;">
+	    <div class="inline-class" style="width:1000px;height:400px;display:inline;border:1px solid #F00;padding:0px;float:left;">
 	     <div style="text-align:center;">
 	     	 <span>1分钟</span>
 	     </div>
-	     <div id="div-1-golden" style="width:290px;height:790px;display:inline;border:1px solid #F00;padding:2px;float:left;">
+	     <div id="div-1-golden" style="width:450px;height:370px;display:inline;border:1px solid #F00;padding:2px;float:left;">
 	     	 
 	     </div>
-	     <div id="div-1-trend" style="width:290px;height:790px;display:inline;border:1px solid #F00;padding:2px;float:left;">
+	     <div id="div-1-trend" style="width:450px;height:370px;display:inline;border:1px solid #F00;padding:2px;float:left;">
 	     	
 	     </div>
 	   </div>
-	  
+	  -->
 	 </form>
   </body>
 </html>
