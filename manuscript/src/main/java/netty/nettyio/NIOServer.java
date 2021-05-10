@@ -1,6 +1,5 @@
 package netty.nettyio;
 
-import org.apache.ibatis.annotations.SelectKey;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;

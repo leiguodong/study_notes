@@ -1,6 +1,6 @@
 package netty.bio;
 
-import lombok.extern.slf4j.Slf4j;
+//import lombok.extern.slf4j.Slf4j;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,7 +11,7 @@ import java.net.Socket;
 /**
  * Created by lei on 2020/12/10.
  */
-@Slf4j
+//@Slf4j
 public class ServerHandler implements Runnable {
     private Socket socket;
     public ServerHandler(Socket socket) {
