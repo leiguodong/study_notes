@@ -141,7 +141,7 @@ public class MyApplicationContext {
                 for(BeanPostProcessor beanPostProcessor: beanPostProcessorList){
                     beanPostProcessor.postProcessBeforeInitialization(instance,beanName);
                 }
-                //初始化 InitializingBean
+                //初始化 InitializingBean  第三方整合通常用到这个借口去判断初始化一些配置
                 if(instance instanceof InitializingBean){
                     try {
                         ((InitializingBean) instance).afterPropertiesSet();
