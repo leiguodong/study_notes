@@ -31,5 +31,6 @@
     <orderEntry type="library" name="Maven: org.apache.rocketmq:rocketmq-client:4.8.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.rocketmq:rocketmq-common:4.4.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.rocketmq:rocketmq-remoting:4.8.0" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-autoconfigure:2.4.5" level="project" />
   </component>
 </module>

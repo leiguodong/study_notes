@@ -7,8 +7,12 @@
   <groupId>lei.study</groupId>
   <artifactId>manuscript</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <packaging>war</packaging>
-
+  <packaging>jar</packaging>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.4.5</version>
+	</parent>
   <name>manuscript Maven Webapp</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
