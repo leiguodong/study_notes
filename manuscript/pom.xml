@@ -147,6 +147,20 @@
 	  <artifactId>spring-boot-starter-aop</artifactId>
 	  <version>2.4.5</version>
     </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.apache.rocketmq/rocketmq-client -->
+    <dependency>
+      <groupId>org.apache.rocketmq</groupId>
+      <artifactId>rocketmq-client</artifactId>
+      <version>4.8.0</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.rocketmq/rocketmq-common -->
+    <dependency>
+      <groupId>org.apache.rocketmq</groupId>
+      <artifactId>rocketmq-common</artifactId>
+      <version>4.8.0</version>
+    </dependency>
+
   </dependencies>
 
   <build>
