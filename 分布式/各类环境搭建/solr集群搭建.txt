@@ -1,0 +1,88 @@
+1、新建solrcloud文件夹
+2、复制Tomcat 4份到solrcloud
+   cp -r apache-tomcat-8.5.57 solrcloud/solr_tomcat_1
+   cp -r apache-tomcat-8.5.57 solrcloud/solr_tomcat_2
+   cp -r apache-tomcat-8.5.57 solrcloud/solr_tomcat_3
+   cp -r apache-tomcat-8.5.57 solrcloud/solr_tomcat_4
+   修改Tomcat/conf 下的server.xml 
+      <Server port="8105" shutdown="SHUTDOWN">    四个Tomcat分别为 8105 8205 8305 8405
+      <Connector port="8180" protocol="HTTP/1.1"           分别为  8180 8280 8380 8480
+                 connectionTimeout="20000"
+            redirectPort="8443"/>
+      <Connector port="8109" protocol="AJP/1.3" redirectPort="8443"/> 分别为8109 8209 8309 8409
+      
+3、修改 Tomcat 端口号模拟三台服务器
+    将solr源文件solr-8.8.2/server/solr 中的solr.xml zoo.cfg分别复制到solr_home中
+    cp -r solr-8.8.2/server/solr  solrcloud/solr_home1
+    cp -r solr-8.8.2/server/solr  solrcloud/solr_home2
+    cp -r solr-8.8.2/server/solr  solrcloud/solr_home3
+    cp -r solr-8.8.2/server/solr  solrcloud/solr_home4
+    
+    分别修改solr.xml solrcloud中的host和hostPort
+       <solrcloud>
+         <str name="host">192.168.1.249</str>        //服务器ip        
+         <int name="hostPort">8081</int>             //tomcat对应服务端口8180 8280 8380 8480
+         <str name="hostContext">${hostContext:solr}</str>
+         <bool name="genericCoreNodeNames">${genericCoreNodeNames:true}</bool>
+         <int name="zkClientTimeout">${zkClientTimeout:30000}</int>
+         <int name="distribUpdateSoTimeout">${distribUpdateSoTimeout:600000}</int>
+         <int name="distribUpdateConnTimeout">${distribUpdateConnTimeout:60000}</int>
+         <str name="zkCredentialsProvider">${zkCredentialsProvider:org.apache.solr.common.cloud.DefaultZkCredentialsProvider}</str>
+         <str name="zkACLProvider">${zkACLProvider:org.apache.solr.common.cloud.DefaultZkACLProvider}</str>
+       </solrcloud>
+
+4、zookeeper集群
+  zookeeper特色功能：1、集中式的配置信息(数据库的属性文件)
+                     2、自动容错 3、近实时搜索 4、查询时自动负载均衡
+  复制三份zookeeper到zookeepercloud 分别为zookeeper1 zookeeper2 zookeeper3
+  在每个zookeeper下新建data文件夹
+  分别在data文件下新建myid文件   命令： echo 1 >>myid            echo 2 >>myid            echo 3 >>myid  
+  修改zookeeper下conf中的zoo_sample.cfg 为zoo.cfg      命令： mv zoo_sample.cfg zoo.cfg
+  分别修改zoo.cfg中的端口号和dataDir路径
+                   dataDir=/home/weblogic/solr/solrcloud/zookeepercloud/zookeeper1/data    //数据存储路径为新建的data文件夹
+                   clientPort=2181    //三个实例对应三个端口号
+  添加集群信息：   server.1=192.168.1.249:2881:3881      1-实例编号    2881-通信端口  3881-选举端口
+                   server.2=192.168.1.249:2882:3882
+                   server.3=192.168.1.249:2883:3883
+
+  新建zookeeper集群启动文件   命令 vim zookeeper_cluster_start.sh   
+     添加内容： cd /home/weblogic/solr/solrcloud/zookeepercloud/zookeeper1/bin
+                ./zkServer.sh start
+                cd /home/weblogic/solr/solrcloud/zookeepercloud/zookeeper2/bin
+                ./zkServer.sh start
+                cd /home/weblogic/solr/solrcloud/zookeepercloud/zookeeper3/bin
+                ./zkServer.sh start
+  为当前用户授权执行sh 文件   命令  chmod u+x zookeeper_cluster_start.sh
+  执行脚本 查看zookeeper状态  命令  ./zkServer.sh status
+
+
+
+五、配置tomcat链接zookeeper
+   1、客户端登录zookeeper 
+     单机环境下 ./zkCli.sh  
+     集群环境下 ./zkCli.sh -server 192.168.1.249:2181  ./zkCli.sh -server 192.168.1.249:2182
+   2、将solr_home/collection1/conf 目录上传到zookeeper (需要保证zookeeper集群是启动的状态)
+   3、找的solr解压包下 solr-8.8.2/server/script/cloud-scripts 下的zkcli.sh 执行如下命令  -zkhost:指定zookeeper集群  -cmd:开启命令upconfig -confname:将上传的文件重命名为myconf
+      ./zkcli.sh -zkhost 192.168.1.249:2181,192.168.1.249:8182,192.168.1.249:2183 -cmd upconfig -confdir /home/weblogic/solr/solrcloud/solr_home1/configsets/sample_techproducts_configs/conf  -confname myconf
+
+      如果环境变量中jdk版本过低 可以指定zkcli.sh中jdk的变量
+         添加：JAVA_HOME=/home/weblogic/solr/jdk1.8.0_112
+               JAVA=$JAVA_HOME/bin/java
+
+   4、修改tomcat/bin 下的catalina.sh (windows环境 catalina.bat)
+   添加  JAVA_OPTS="-DzkHost=192.168.1.249:2181,192.168.1.249:8182,192.168.1.249:2183"
+   5、新建Tomcat集群启动脚本 vim solr_clusters_start.sh
+    cd /home/weblogic/solr/solrcloud/solr_tomcat_1/bin
+    ./startup.sh 
+   6、登录solr 点击cloud
+    创建新的分片
+      http://192.168.1.249:8180/solr/admin/collections?action=CREATE&name=collection2&numShards=2&replicationFactor=2
+    删除不用的collection
+      http://192.168.1.249:8081/solr/admin/collections?action=DELETE&name=collection1
+
+附录：
+   Linux 配置多个jdk
+   alternatives --install /usr/bin/java java /usr/java/jdk1.6.0_45/bin/java 300
+   alternatives --install /usr/bin/java java /home/weblogic/solr/jdk1.8.0_112/bin/java 300
+   
+   alternatives --config java   //输入数字选择Java版本
