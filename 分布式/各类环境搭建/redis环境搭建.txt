@@ -1,0 +1,28 @@
+1、解压 redis文件  tar -zxvf redis_xxxxx.tar.gz
+2、进入redis文件夹 执行 make 
+   没有make命令 需下载需要的命令 yum -y intall gcc-c++ automake autoconf
+
+
+
+
+redis 数据类型
+   string    eg:    单个值  set name zhangsan          取值  get name    //zhangsan
+                    多个值  mset age 18 addr shanghai  取值  mget age addr // 18 shanghai
+                    set code test ex 10    //code:test  10秒后失效
+                    ttl code //查看code是否失效  -2 失效 未失效会显示还剩多少秒  -1 永不失效
+             set code [expiration EX seconds |PX milliseconds] [nx|xx]   nx--库中没有才生效  xx--库中有才生效  //可以用做分布式锁
+   hash      eg:    hset user name zhangsan      取值 hget user name
+             hset k{[k,v],[k,v]}     hgetall  k      hdel  //
+   list     eg : lpush  students zhangsan lisi   //左侧往students中加入zhangsan lisi
+                 rpush  students wangwu zhaoliu  //右侧往students中加入wangwu zhaoliu
+                 lrange students start stop      //列出students 类似实现分页的功能
+                 llen                            //查看list长度
+                 lrem                            //
+   set    eg： sadd  letters aaa bbb ccc ddd
+               smembers letters    //列出
+               scard letters       //长度
+               srem  letters    aaa   //删除aaa
+   zset  eg:   zadd score 1 zhangsan 5 lisi 3 wangwu 8 zhaoliu
+               zrange  score 0 3          //按照排名列出
+               zrem   score zhangsan      //删除zhangsan
+ 
