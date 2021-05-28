@@ -9,7 +9,6 @@ import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import io.netty.util.CharsetUtil;
 
-import javax.lang.model.element.ElementVisitor;
 
 /**
  * Created by lei on 2020/12/14.
@@ -25,7 +24,7 @@ public class NettyServer {
 
     public static void start() throws Exception{
         ServerBootstrap serverBootstrap = new ServerBootstrap();
-        ChannelFuture cf = (ChannelFuture) serverBootstrap.group(baseGroup,workGroup)
+        ChannelFuture cf = serverBootstrap.group(baseGroup,workGroup)
             .channel(NioServerSocketChannel.class)
             .childHandler(new ChannelInitializer<Channel>() {
                 @Override
@@ -36,8 +35,8 @@ public class NettyServer {
                    pipeline.addLast(new StringEncoder(CharsetUtil.UTF_8));
                    pipeline.addLast(new TcpServerhandler());
                  }
-        });
-        serverBootstrap.bind(IP,port).sync();
+        }).bind(IP,port).sync();
+        //serverBootstrap.bind(IP,port).sync();
         cf.channel().closeFuture().sync();
         System.out.println("Server start");
     }
